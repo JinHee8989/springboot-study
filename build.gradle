@@ -1,0 +1,79 @@
+buildscript {
+    ext { //extra로써 변수 설정하는곳 : 자주 쓰이는 경우 씀
+        spring = "2.4.1"
+        boot = "org.springframework.boot"
+        lombok = "org.projectlombok:lombok"
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("$boot:spring-boot-gradle-plugin:$spring")
+    }
+}
+
+allprojects { //모든 프로젝트에 공통적으로 들어가는 것들을 설정
+    group = "com.study.springbootsecurity"  //그룹아이디
+    version = "1.0.0"   //버전아이디
+}
+
+subprojects { //서브 프로젝트에 대한 설정
+
+    apply plugin: "java"    //자바 플러그인을 추가하면 빌드에 TASK가 추가됨
+    apply plugin: boot
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "idea"
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        developmentOnly
+        runtimeClasspath {
+            extendsFrom developmentOnly
+        }
+    }
+
+    dependencies {
+//        developmentOnly("$boot:spring-boot-devtools") //로그인 구현하기전 잠시 주석처리
+        implementation "$boot:spring-boot-starter-security"
+        implementation 'com.fasterxml.jackson.core:jackson-annotations'
+
+        compileOnly lombok
+        testCompileOnly lombok
+        annotationProcessor lombok
+        testAnnotationProcessor lombok
+
+        testImplementation "$boot:spring-boot-starter-test"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+}
+
+
+["comp", "web"].each {
+    def subProjectDir = new File(projectDir, it)
+    subProjectDir.eachDir {dir->
+        def projectName = ":${it}-${dir.name}"
+        project(projectName){
+            bootJar.enabled(false)      //SpringBootApplication이 필요하지 않으면 false(그래야 bootApplication이 안만들어짐)
+            jar.enabled(true)
+        }
+    }
+}
+["server"].each {
+    def subProjectDir = new File(projectDir, it)
+    subProjectDir.eachDir {dir->
+        def projectName = ":${it}-${dir.name}"
+        project(projectName){
+
+        }
+    }
+}
+
+help.enabled(false)
+

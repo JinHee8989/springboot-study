@@ -1,0 +1,53 @@
+/**
+ * 1. 일반적인 경우
+ * rootProject.name="project-name"
+ * include "project-name"
+ *
+ * 2. 하나의 프로젝트에 여러 모듈 프로젝트를 포함하는 경우
+ * rootProject.name="project-name"
+ * include ":sub-project1"
+ * include ":sub-project2"
+ *
+ * 3. 모듈 프로젝트들이 많은 경우 - group으로 관리하고 싶다면 다음과 같이 자동 빌드하는 스크립트를 작성하면 편함
+ * 하단 스크립트 참조
+ */
+rootProject.name = 'springboot-security'
+
+["comp", "web", "server"].each {
+
+    def compDir = new File(rootDir, it)
+    if(!compDir.exists()){
+        compDir.mkdirs()
+    }
+
+    compDir.eachDir {subDir ->
+
+        def gradleFile = new File(subDir.absolutePath, "build.gradle")
+        if(!gradleFile.exists()){
+            gradleFile.text =
+                    """
+
+                    dependencies {
+
+                    }
+
+                    """.stripIndent(20)
+        }
+
+        [
+                "src/main/java/com/study/springbootsecurity",
+                "src/main/resources",
+                "src/test/java/com/study/springbootsecurity",
+                "src/test/resources"
+        ].each {srcDir->
+            def srcFolder = new File(subDir.absolutePath, srcDir)
+            if(!srcFolder.exists()){
+                srcFolder.mkdirs()
+            }
+        }
+
+        def projectName = ":${it}-${subDir.name}";
+        include projectName
+        project(projectName).projectDir = subDir
+    }
+}
