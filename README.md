@@ -14,5 +14,5 @@
     권한은 특정 페이지에 접근하거나 특정 리소스에 접근할 수 있는 권한여부를 판단하는데 사용됨. 개발자는 권한이 있는 사용자에게만 페이지나 리소스 접근을 허용하도록 코딩해야 하는데, 이런 코드를 쉽게 작성할 수 있도록 프레임워크를 제공하는 것이 스프링 시큐리티 프레임워크(Spring Security Framework)임.
                                               
       * Secured : deprecated
-      * PrePostAuthorize
+      * PrePostAuthorize -> @Secured와 @PrePostAuthorize는 접근하려는 url에 annotation을 설정해 권한을 확인하는 방법
       * AOP

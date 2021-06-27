@@ -1,0 +1,10 @@
+server:
+  port: 9050
+
+#security 로그인 페이지에 유효한 로그인 정보를 셋팅
+spring:
+  security:
+    user:
+      name: user
+      password: 1234
+      roles: USER

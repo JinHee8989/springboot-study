@@ -4,5 +4,6 @@ dependencies {
 
     implementation("$boot:spring-boot-starter-web")
     compileOnly project(":comp-common-utils")   //다른 모듈의 클래스를 레퍼런스하기위해 작성
+
 }
 
