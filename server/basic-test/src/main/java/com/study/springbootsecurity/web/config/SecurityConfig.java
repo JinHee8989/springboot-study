@@ -1,6 +1,7 @@
 package com.study.springbootsecurity.web.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,7 +13,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@EnableWebSecurity(debug = true)
+@Order(1) //securityConfig를 여러개 두는 경우 순서 정해주는 어노테이션임
+@EnableWebSecurity(debug = true) //어떤 필터를 거치는지 로그에 찍힘
 @EnableGlobalMethodSecurity(prePostEnabled = true) //권한을 체크하게 됨
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -32,10 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.antMatcher("/api/**");
         http.authorizeRequests((request) -> request.antMatchers("/").permitAll()
                 .anyRequest().authenticated()
         );
         http.formLogin();
         http.httpBasic();
+
+
     }
 }
