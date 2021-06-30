@@ -31,6 +31,12 @@
             <a href="/admin-page">  관리자 로그인 </a>
         </div>
 
+        <div class="link">
+           <form th:action="@{/logout}" method="post">
+               <button class="btn btn-info" type="submit">로그아웃</button>
+           </form>
+        </div>
+
     </div>
 </div>
 <script th:src="@{/js/bootstrap.js}" />
