@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring()  //웹리소스에 대해서는 스프링 시큐리티 필터가 적용되지 않도록 설정
+        web.ignoring()  //웹 리소스에 대해서는 스프링 시큐리티 필터가 적용되지 않도록 설정
                 .requestMatchers(
                         PathRequest.toStaticResources().atCommonLocations()     //리소스의 static을 몽땅 웹리소스로 잡아주고있음
                 );
