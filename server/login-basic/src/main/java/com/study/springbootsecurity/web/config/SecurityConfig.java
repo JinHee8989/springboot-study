@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(
                         PathRequest.toStaticResources().atCommonLocations()     //리소스의 static을 몽땅 웹리소스로 잡아주고있음
                 );
+
     }
 
 
