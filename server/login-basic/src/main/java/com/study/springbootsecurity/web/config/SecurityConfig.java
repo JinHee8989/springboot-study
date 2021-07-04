@@ -18,6 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomAuthDetails customAuthDetails;  //의존성 주입
 
+
     public SecurityConfig(CustomAuthDetails customAuthDetails) {
         this.customAuthDetails = customAuthDetails;
     }
