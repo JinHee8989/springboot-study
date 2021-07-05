@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {  //이렇게 설정해주면 application.yml에 설정해놓은 user는 무시하게됨(로그인 불가)
         auth.inMemoryAuthentication()
+
                 .withUser(
                         User.withDefaultPasswordEncoder().username("user1").password("4321").roles("USER")) //withDefaultPasswordEncoder()는 안전하지않아 테스트때만 사용
                 .withUser(
