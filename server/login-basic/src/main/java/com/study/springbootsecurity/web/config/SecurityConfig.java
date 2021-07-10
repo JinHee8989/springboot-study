@@ -58,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout(
                         logout->logout.logoutSuccessUrl("/")    //로그아웃 후 이동할 페이지 설정
 
+
+
                 )
                 .exceptionHandling(exception -> exception.accessDeniedPage("/access-denied"))   //예외 발생시 이동할 페이지 설정
         ;
