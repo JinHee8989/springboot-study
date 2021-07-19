@@ -2,7 +2,7 @@ buildscript {
     ext { //extra로써 변수 설정하는곳 : 자주 쓰이는 경우 씀
         spring = "2.4.1"
         boot = "org.springframework.boot"
-        lombok = "org.projectlombok:lombok"
+        lombok = "org.projectlombok:lombok:1.18.20"
     }
     repositories {
         mavenCentral()

@@ -1,7 +1,10 @@
 package com.study.springbootsecurity.web.config;
 
 import com.study.springbootsecurity.web.student.StudentManager;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -19,5 +22,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(studentManager);    //studentManager가 provider가 됨
     }
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests(request->
+                        request.anyRequest().permitAll()
+                )
+        .formLogin(
+                login -> login.loginPage("/login")
+        )
+        ;
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+        ;
+    }
 
 }
